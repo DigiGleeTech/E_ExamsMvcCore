@@ -1,0 +1,70 @@
+﻿@model Question
+@{
+    ViewData["Title"] = "Home Page";
+
+    var DisabledButton = ViewBag.DisabledButton;
+}
+
+<div class="mt-5">
+    <h2 class="text-center text-success text-uppercase">the federal polytechnic, bali</h2>
+    <h2 class="text-center text-success text-uppercase"> p.m.b 05, bali,  </h2>
+    <h2 class="text-center text-success text-uppercase"> taraba state  </h2>
+</div>
+
+<div class="row thubmnail col-md-10 justify-content-between">
+    <div class="col-md-2">
+        <div id="countdown"></div>
+        @for (var btn = 1; btn <= ViewBag.TotalQuestion; btn++)
+        {
+            <button type="button" class="btnSd" onclick="sideBtn()" value="@btn">@btn</button>
+        }
+    </div>
+    <div class="col-md-10" id="questionContainer">
+        @Html.Partial("_QuestionPartial", Model)
+    </div>
+</div>
+
+<div class="text-light mt-3">
+    <input type="button" id="Submit" class="btn btn-outline-primary btn-lg" value="Submit " /> 
+    @*<input type="button" onclick="submit()" class="btn btn-outline-primary btn-lg" value="Submit " />*@
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+@section scripts {
+    <script>
+
+        
+        var countdownMinutes = 2;
+        var countdownSeconds = 0;
+
+        function startCountdown() {
+            var countdownElement = document.getElementById('countdown');
+
+            var timer = setInterval(function () {
+                countdownElement.innerText = countdownMinutes + 'm ' + countdownSeconds + 's';
+
+                if (countdownMinutes === 0 && countdownSeconds === 0) {
+                    clearInterval(timer);
+                    // countdownElement.innerText = 'Countdown complete!';
+                    window.location.href = '/Home/Easay';
+
+                } else if (countdownSeconds === 0) {
+                    countdownMinutes--;
+                    countdownSeconds = 59;
+                } else {
+                    countdownSeconds--;
+                }
+            }, 1000);
+        }
+
+        // Start the countdown when the page loads
+        document.addEventListener('DOMContentLoaded', function () {
+            startCountdown();
+        });
+
+
+    </script>
+
+}

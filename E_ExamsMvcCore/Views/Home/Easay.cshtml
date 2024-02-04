@@ -1,0 +1,79 @@
+﻿@model E_ExamsMvcCore.Models.Exam
+@{
+    // ViewData["Title"] = "Easay";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h2 class="text-center text-success text-uppercase">the federal polytechnic, bali</h2>
+    <h2 class="text-center text-success text-uppercase"> p.m.b 05, bali,  </h2>
+    <h2 class="text-center text-success text-uppercase"> taraba state  </h2>
+</div>
+<div class="d-flex row justify-content-center mt-4">
+   <h2 
+    <div class="d-flex row col-md-12 justify-content-between">
+        <div class="col-md-10">
+            <h2>@Model.Course.Department.Name</h2>
+            <h2>@Model.Course.CourseName</h2>
+            <h2>@Model.Title</h2>
+        </div>
+        <div class="h2 col-md-2" id="countdown"></div>
+        @foreach (var easay in Model.EasayQuestions)
+        {
+            <h2>@easay.Instruction</h2>
+            <ol>
+                <li>@easay.QuestionContent</li>
+                <ol>
+                    @foreach (var subEasay in easay.SubEasayQuestions)
+                    {
+                        <li>@subEasay.QuestionText</li>
+                    }
+                </ol>
+            </ol>
+        }
+        <textarea rows="10" id="editor" name="editor"></textarea>
+        <button type="submit" class="btn btn-outline-primary" id="SubmitExam">Submit</button>
+    </div> 
+   
+</div>
+
+@section scripts {
+    <script>
+
+        // Initialize Summernote on the textarea
+        $(document).ready(function () {
+            $('#editor').summernote();
+        });
+
+        var countdownMinutes = 10;
+        var countdownSeconds = 0;
+
+        function startCountdown() {
+            var countdownElement = document.getElementById('countdown');
+
+            var timer = setInterval(function () {
+                countdownElement.innerText = countdownMinutes + 'm ' + countdownSeconds + 's';
+
+                if (countdownMinutes === 0 && countdownSeconds === 0) {
+                    clearInterval(timer);
+                    // countdownElement.innerText = 'Countdown complete!';
+                    window.location.href = '/Home/Index';
+
+                } else if (countdownSeconds === 0) {
+                    countdownMinutes--;
+                    countdownSeconds = 59;
+                } else {
+                    countdownSeconds--;
+                }
+            }, 1000);
+        }
+
+        // Start the countdown when the page loads
+        document.addEventListener('DOMContentLoaded', function () {
+            startCountdown();
+        });
+
+
+    </script>
+
+}

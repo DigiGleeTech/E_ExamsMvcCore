@@ -1,0 +1,32 @@
+﻿@model Question
+
+<form id="myForm">
+<div class="row col-md-10 thubmnail justify-content-between  ">
+    
+    <div class="col-md-8 row">
+        <div class="col-md-8">
+            <H4>@Model.Exam.Title</H4>
+            <h4>@Model.Exam.Course.Department.Name</h4>
+            <h4>@Model.Exam.Course.CourseName</h4>
+            <input type="hidden" value="@Model.Id" id="questionId" />
+        </div>
+        <div class="col-md-4 text-right">
+            <div id="countdown"></div>
+        </div>
+    </div>
+  
+</div>
+
+<hr />
+<h3>@Model.QuestionText</h3>
+    <input type="radio" value="@Model.OptionA" name="option" asp-for="@Model.OptionA" /> @Model.OptionA <br />
+    <input type="radio" value="@Model.OptionB" name="option" asp-for="@Model.OptionB" /> @Model.OptionB <br />
+    <input type="radio" value="@Model.OptionC" name="option" asp-for="@Model.OptionC" /> @Model.OptionC <br />
+    <input type="radio" value="@Model.OptionD" name="option" asp-for="@Model.OptionD" /> @Model.OptionD <br />
+</form>
+  
+  <div class="text-light">
+    <input type="button" id="prevBtn" @((Model.Id == 1) ? "disabled" : "") onclick="MoveToPreviousQuestion()" class="btn btn-outline-primary btn-lg" value="Previous" />
+    <input type="button" id="nextBtn" @((Model.Id == ViewBag.TotalQuestion) ? "disabled" : "") onclick="MoveToNextQuestion()" class="btn btn-outline-primary btn-lg" value="Next" />
+  </div>
+

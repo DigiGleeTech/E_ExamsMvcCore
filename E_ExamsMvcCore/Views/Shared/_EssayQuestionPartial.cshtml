@@ -1,0 +1,15 @@
+﻿<!-- _EssayQuestionPartial.cshtml -->
+@model EasayQuestion
+
+<div>
+    <p>@Model.QuestionContent</p>
+    @if (Model.SubEasayQuestions != null @* && Model.SubEasayQuestions.Any() *@)
+    {
+        <ol>
+            @foreach (var subEasay in Model.SubEasayQuestions)
+            {
+                <li>@subEasay.QuestionText</li>
+            }
+        </ol>
+    }
+</div>
